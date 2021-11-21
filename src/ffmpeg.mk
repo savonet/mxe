@@ -8,8 +8,8 @@ $(PKG)_CHECKSUM := 40973d44970dbc83ef302b0609f2e74982be2d85916dd2ee7472d30678a7a
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.xz
 $(PKG)_URL      := https://ffmpeg.org/releases/$($(PKG)_FILE)
-$(PKG)_DEPS     := cc bzip2 gnutls lame libass libbluray libbs2b libcaca \
-                   libvpx opencore-amr opus sdl2 speex theora vidstab \
+$(PKG)_DEPS     := cc bzip2 gnutls lame libass libbluray libbs2b \
+                   libvpx opencore-amr opus speex theora vidstab \
                    vo-amrwbenc vorbis x264 xvidcore yasm zlib
 
 # DO NOT ADD fdk-aac OR openssl SUPPORT.
@@ -47,7 +47,6 @@ define $(PKG)_BUILD
         --enable-libass \
         --enable-libbluray \
         --enable-libbs2b \
-        --enable-libcaca \
         --enable-libmp3lame \
         --enable-libopencore-amrnb \
         --enable-libopencore-amrwb \
@@ -61,6 +60,7 @@ define $(PKG)_BUILD
         --enable-libx264 \
         --enable-libxvid \
         --extra-ldflags="-fstack-protector" \
+        --disable-sdl2 \
         $($(PKG)_CONFIGURE_OPTS)
     $(MAKE) -C '$(BUILD_DIR)' -j '$(JOBS)'
     $(MAKE) -C '$(BUILD_DIR)' -j 1 install
